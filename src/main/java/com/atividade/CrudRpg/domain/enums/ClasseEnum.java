@@ -1,4 +1,4 @@
-package com.atividade.CrudRpg.domain;
+package com.atividade.CrudRpg.domain.enums;
 
 public enum ClasseEnum {
     GUERREIRO,

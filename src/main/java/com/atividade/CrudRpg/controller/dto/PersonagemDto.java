@@ -1,6 +1,6 @@
 package com.atividade.CrudRpg.controller.dto;
 
-import com.atividade.CrudRpg.domain.ClasseEnum;
+import com.atividade.CrudRpg.domain.enums.ClasseEnum;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;

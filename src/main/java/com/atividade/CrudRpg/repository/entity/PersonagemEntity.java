@@ -1,7 +1,6 @@
 package com.atividade.CrudRpg.repository.entity;
 
-import com.atividade.CrudRpg.domain.ClasseEnum;
-import com.atividade.CrudRpg.domain.ItemMagico;
+import com.atividade.CrudRpg.domain.enums.ClasseEnum;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -26,7 +25,11 @@ public class PersonagemEntity {
     private String nomeFantasia;
     private ClasseEnum classe;
     private Integer level;
+
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "id_personagem")
     private List<ItemMagicoEntity> itensMagicos;
+
     private Integer forca;
     private Integer defesa;
 }

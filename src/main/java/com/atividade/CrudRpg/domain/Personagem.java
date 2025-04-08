@@ -1,6 +1,6 @@
 package com.atividade.CrudRpg.domain;
 
-import com.atividade.CrudRpg.controller.dto.ItemMagicoDto;
+import com.atividade.CrudRpg.domain.enums.ClasseEnum;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
