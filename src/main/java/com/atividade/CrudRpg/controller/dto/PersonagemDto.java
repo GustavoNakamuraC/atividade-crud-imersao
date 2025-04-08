@@ -2,6 +2,7 @@ package com.atividade.CrudRpg.controller.dto;
 
 import com.atividade.CrudRpg.domain.enums.ClasseEnum;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -10,6 +11,7 @@ import java.util.List;
 @AllArgsConstructor
 @Getter
 @Setter
+@Builder
 public class PersonagemDto {
     //Se der, adicionar validators.
 
