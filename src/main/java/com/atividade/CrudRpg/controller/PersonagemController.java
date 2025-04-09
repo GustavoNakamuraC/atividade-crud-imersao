@@ -1,6 +1,7 @@
 package com.atividade.CrudRpg.controller;
 
 import com.atividade.CrudRpg.controller.dto.PersonagemDto;
+import com.atividade.CrudRpg.controller.dto.PersonagemNomeDto;
 import com.atividade.CrudRpg.controller.dto.ResponseDto;
 import com.atividade.CrudRpg.mapper.PersonagemMapper;
 import com.atividade.CrudRpg.service.PersonagemService;
@@ -45,6 +46,29 @@ public class PersonagemController {
         ResponseDto<List<PersonagemDto>> resposta = new ResponseDto<>(personagemList);
 
         return ResponseEntity.ok(resposta);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<ResponseDto<PersonagemDto>> buscarPorId(@PathVariable Long id){
+        PersonagemDto personagemBuscado = PersonagemMapper.domainParaDto(service.buscarPorId(id));
+
+        ResponseDto<PersonagemDto> resposta = new ResponseDto<>(personagemBuscado);
+
+        return ResponseEntity.ok(resposta);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<ResponseDto<PersonagemDto>> atualizarNome(@PathVariable Long id, @RequestBody PersonagemNomeDto nomeDto){
+        PersonagemDto personagemAlterado = PersonagemMapper.domainParaDto(service.atualizarNome(id, nomeDto.getNome()));
+        ResponseDto<PersonagemDto> resposta = new ResponseDto<>(personagemAlterado);
+
+        return ResponseEntity.ok(resposta);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deletar(@PathVariable Long id){
+        service.deletar(id);
+        return ResponseEntity.noContent().build();
     }
 
 
