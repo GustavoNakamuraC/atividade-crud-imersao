@@ -2,10 +2,7 @@ package com.atividade.CrudRpg.repository.entity;
 
 import com.atividade.CrudRpg.domain.enums.TipoItemEnum;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.print.attribute.standard.MediaSize;
 import java.lang.reflect.Type;
@@ -16,6 +13,7 @@ import java.lang.reflect.Type;
 @NoArgsConstructor
 @Setter
 @Getter
+@Builder
 public class ItemMagicoEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
