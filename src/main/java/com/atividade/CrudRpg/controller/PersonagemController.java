@@ -9,6 +9,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import java.util.List;
+
 @RequiredArgsConstructor
 @RestController
 @RequestMapping(name = "/personagens")
@@ -32,6 +34,17 @@ public class PersonagemController {
                                 .toUri()
                 )
                 .body(resposta);
+    }
+
+    @GetMapping()
+    public ResponseEntity<ResponseDto<List<PersonagemDto>>> listarPersonagens(){
+        List<PersonagemDto> personagemList = service.listarPersonagens().stream()
+                .map(PersonagemMapper::domainParaDto)
+                .toList();
+
+        ResponseDto<List<PersonagemDto>> resposta = new ResponseDto<>(personagemList);
+
+        return ResponseEntity.ok(resposta);
     }
 
 

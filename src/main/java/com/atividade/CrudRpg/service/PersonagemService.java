@@ -26,11 +26,19 @@ public class PersonagemService {
             throw new PersonagemInvalidoException(ERRO_PERSONAGEM_INVALIDO);
         }
 
-        List<ItemMagico> itemMagicos = personagem.getItensMagicos().stream().map(itemMagicoService::cadastrar).toList();
+        List<ItemMagico> itemMagicos = personagem.getItensMagicos().stream().map(itemMagico -> itemMagicoService.buscarItemMagicoPorId(itemMagico.getId())).toList();
         personagem.setItensMagicos(itemMagicos);
 
         PersonagemEntity personagemSalvo = repository.save(PersonagemMapper.domainParaEntity(personagem));
 
         return PersonagemMapper.entityParaDomain(personagemSalvo);
+    }
+
+    public List<Personagem> listarPersonagens() {
+        List<PersonagemEntity> personagens = repository.findAll();
+
+        return personagens.stream()
+                .map(PersonagemMapper::entityParaDomain)
+                .toList();
     }
 }

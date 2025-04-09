@@ -5,4 +5,7 @@ import com.atividade.CrudRpg.domain.ItemMagico;
 public class ItemMagicoService {
     public ItemMagico cadastrar(ItemMagico itemMagico) {
     }
+
+    public ItemMagico buscarItemMagicoPorId(Long id) {
+    }
 }
