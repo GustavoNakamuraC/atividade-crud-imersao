@@ -21,4 +21,5 @@ public class Personagem {
     private List<ItemMagico> itensMagicos;
     private Integer forca;
     private Integer defesa;
+
 }
