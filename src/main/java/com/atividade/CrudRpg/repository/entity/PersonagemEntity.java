@@ -21,7 +21,10 @@ public class PersonagemEntity {
 
     @Column(name = "nome_fantasia")
     private String nomeFantasia;
+
+    @Enumerated(EnumType.STRING)
     private ClasseEnum classe;
+
     private Integer level;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
