@@ -65,4 +65,22 @@ public class PersonagemService {
         buscarPorId(id);
         repository.deleteById(id);
     }
+
+    public Personagem adicionarItem(Long id, ItemMagico itemMagico) {
+        Personagem personagem = buscarPorId(id);
+        ItemMagico itemMagicoAdd = itemMagicoService.buscarPorId(itemMagico.getId());
+
+        personagem.getItensMagicos().add(itemMagicoAdd);
+
+        return personagem;
+    }
+
+    public Personagem removerItem(Long id, ItemMagico itemMagico) {
+        Personagem personagem = buscarPorId(id);
+        ItemMagico itemMagicoRemove = itemMagicoService.buscarPorId(itemMagico.getId());
+
+        personagem.getItensMagicos().remove(itemMagicoRemove);
+
+        return personagem;
+    }
 }

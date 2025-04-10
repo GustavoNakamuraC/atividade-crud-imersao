@@ -1,8 +1,10 @@
 package com.atividade.CrudRpg.controller;
 
+import com.atividade.CrudRpg.controller.dto.ItemMagicoDto;
 import com.atividade.CrudRpg.controller.dto.PersonagemDto;
 import com.atividade.CrudRpg.controller.dto.PersonagemNomeDto;
 import com.atividade.CrudRpg.controller.dto.ResponseDto;
+import com.atividade.CrudRpg.mapper.ItemMagicoMapper;
 import com.atividade.CrudRpg.mapper.PersonagemMapper;
 import com.atividade.CrudRpg.service.PersonagemService;
 import lombok.RequiredArgsConstructor;
@@ -61,6 +63,22 @@ public class PersonagemController {
     public ResponseEntity<ResponseDto<PersonagemDto>> atualizarNome(@PathVariable Long id, @RequestBody PersonagemNomeDto nomeDto){
         PersonagemDto personagemAlterado = PersonagemMapper.domainParaDto(service.atualizarNome(id, nomeDto.getNome()));
         ResponseDto<PersonagemDto> resposta = new ResponseDto<>(personagemAlterado);
+
+        return ResponseEntity.ok(resposta);
+    }
+
+    @PutMapping("/adicionar-item/{id}")
+    public ResponseEntity<ResponseDto<PersonagemDto>> adicionarItem(@PathVariable Long id, @RequestBody ItemMagicoDto itemMagicoDto){
+        PersonagemDto personagemNovo = PersonagemMapper.domainParaDto(service.adicionarItem(id, ItemMagicoMapper.dtoParaDomain(itemMagicoDto)));
+        ResponseDto<PersonagemDto> resposta = new ResponseDto<>(personagemNovo);
+
+        return ResponseEntity.ok(resposta);
+    }
+
+    @PutMapping("/remover-item/{id}")
+    public ResponseEntity<ResponseDto<PersonagemDto>> removerItem(@PathVariable Long id, @RequestBody ItemMagicoDto itemMagicoDto){
+        PersonagemDto personagemNovo = PersonagemMapper.domainParaDto(service.removerItem(id, ItemMagicoMapper.dtoParaDomain(itemMagicoDto)));
+        ResponseDto<PersonagemDto> resposta = new ResponseDto<>(personagemNovo);
 
         return ResponseEntity.ok(resposta);
     }
