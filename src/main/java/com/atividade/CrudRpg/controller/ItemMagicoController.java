@@ -51,4 +51,22 @@ public class ItemMagicoController {
 
         return ResponseEntity.ok(resposta);
     }
+
+    @GetMapping("/personagem/{id}")
+    public ResponseEntity<ResponseDto<List<ItemMagicoDto>>> listarPorPersonagem(@PathVariable Long id){
+        List<ItemMagicoDto> itemMagicoList = service.listarPorPersonagem(id)
+                .stream().map(ItemMagicoMapper::domainParaDto).toList();
+
+        ResponseDto<List<ItemMagicoDto>> resposta = new ResponseDto<>(itemMagicoList);
+
+        return ResponseEntity.ok(resposta);
+    }
+
+    @GetMapping("amuleto/{id}")
+    public  ResponseEntity<ResponseDto<ItemMagicoDto>> buscarAmuletoPorPersonagem(@PathVariable Long id){
+        ItemMagicoDto itemMagicoDto = ItemMagicoMapper.domainParaDto(service.buscarAmuletoPorPersonagem(id));
+        ResponseDto<ItemMagicoDto> resposta = new ResponseDto<>(itemMagicoDto);
+
+        return ResponseEntity.ok(resposta);
+    }
 }

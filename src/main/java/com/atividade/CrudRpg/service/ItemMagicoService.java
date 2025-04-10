@@ -2,11 +2,13 @@ package com.atividade.CrudRpg.service;
 
 import com.atividade.CrudRpg.controller.dto.ItemMagicoDto;
 import com.atividade.CrudRpg.domain.ItemMagico;
+import com.atividade.CrudRpg.domain.Personagem;
 import com.atividade.CrudRpg.domain.enums.TipoItemEnum;
 import com.atividade.CrudRpg.mapper.ItemMagicoMapper;
 import com.atividade.CrudRpg.repository.ItemMagicoRepository;
 import com.atividade.CrudRpg.repository.entity.ItemMagicoEntity;
 import lombok.RequiredArgsConstructor;
+import org.apache.logging.log4j.simple.internal.SimpleProvider;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,6 +17,7 @@ import java.util.Optional;
 @Service
 @RequiredArgsConstructor
 public class ItemMagicoService {
+    private final PersonagemService personagemService;
     private final ItemMagicoRepository repository;
     private static final String ERRO_DADOS_INVALIDOS = "Dados do item mágico inválidos.";
     private static final String ERRO_ITEM_NAO_ENCONTRADO = "Item mágico não encontrado.";
@@ -56,4 +59,24 @@ public class ItemMagicoService {
     }
 
 
+    public List<ItemMagico> listarPorPersonagem(Long idPsersonagem) {
+        Personagem personagem = personagemService.buscarPorId(idPsersonagem);
+
+        return personagem.getItensMagicos();
+    }
+
+    public ItemMagico buscarAmuletoPorPersonagem(Long idPersonagem) {
+        Personagem personagem = personagemService.buscarPorId(idPersonagem);
+        List<ItemMagico> itens = personagem.getItensMagicos();
+        ItemMagico amuleto = new ItemMagico();
+
+        for (ItemMagico item : itens) {
+            if (item.getTipoItem() == TipoItemEnum.AMULETO){
+                amuleto = item;
+            }
+        }
+
+        return amuleto;
+
+    }
 }
