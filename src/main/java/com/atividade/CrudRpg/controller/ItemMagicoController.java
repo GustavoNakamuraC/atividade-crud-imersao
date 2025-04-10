@@ -8,11 +8,10 @@ import com.atividade.CrudRpg.mapper.PersonagemMapper;
 import com.atividade.CrudRpg.service.ItemMagicoService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/itens")
@@ -34,5 +33,22 @@ public class ItemMagicoController {
                                 .toUri()
                 )
                 .body(resposta);
+    }
+
+    @GetMapping()
+    public ResponseEntity<ResponseDto<List<ItemMagicoDto>>> listarItensMagicos(){
+        List<ItemMagicoDto> itensMagicosList = service.listarItensMagicos().stream()
+                .map(ItemMagicoMapper::domainParaDto).toList();
+        ResponseDto<List<ItemMagicoDto>> resposta = new ResponseDto<>(itensMagicosList);
+
+        return ResponseEntity.ok(resposta);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<ResponseDto<ItemMagicoDto>> buscarPorId(@PathVariable Long id){
+        ItemMagicoDto itemMagico = ItemMagicoMapper.domainParaDto(service.buscarPorId(id));
+        ResponseDto<ItemMagicoDto> resposta = new ResponseDto<>(itemMagico);
+
+        return ResponseEntity.ok(resposta);
     }
 }
