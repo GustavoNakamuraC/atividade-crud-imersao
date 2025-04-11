@@ -4,9 +4,6 @@ import com.atividade.CrudRpg.domain.enums.TipoItemEnum;
 import jakarta.persistence.*;
 import lombok.*;
 
-import javax.print.attribute.standard.MediaSize;
-import java.lang.reflect.Type;
-
 @Entity(name = "ItemMagico")
 @Table (name = "itens_magicos")
 @AllArgsConstructor

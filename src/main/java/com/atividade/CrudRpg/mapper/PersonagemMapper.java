@@ -1,11 +1,8 @@
 package com.atividade.CrudRpg.mapper;
 
 import com.atividade.CrudRpg.controller.dto.PersonagemDto;
-import com.atividade.CrudRpg.domain.ItemMagico;
 import com.atividade.CrudRpg.domain.Personagem;
 import com.atividade.CrudRpg.repository.entity.PersonagemEntity;
-
-import java.util.List;
 
 public class PersonagemMapper {
     public static Personagem dtoParaDomain(PersonagemDto dto){

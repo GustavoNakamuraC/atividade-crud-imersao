@@ -1,14 +1,11 @@
 package com.atividade.CrudRpg.service;
 
-import com.atividade.CrudRpg.controller.dto.ItemMagicoDto;
 import com.atividade.CrudRpg.domain.ItemMagico;
-import com.atividade.CrudRpg.domain.Personagem;
 import com.atividade.CrudRpg.domain.enums.TipoItemEnum;
 import com.atividade.CrudRpg.mapper.ItemMagicoMapper;
 import com.atividade.CrudRpg.repository.ItemMagicoRepository;
 import com.atividade.CrudRpg.repository.entity.ItemMagicoEntity;
 import lombok.RequiredArgsConstructor;
-import org.apache.logging.log4j.simple.internal.SimpleProvider;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

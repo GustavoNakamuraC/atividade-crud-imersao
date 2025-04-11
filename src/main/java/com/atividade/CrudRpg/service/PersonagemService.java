@@ -7,7 +7,6 @@ import com.atividade.CrudRpg.mapper.PersonagemMapper;
 import com.atividade.CrudRpg.repository.PersonagemRepository;
 import com.atividade.CrudRpg.repository.entity.PersonagemEntity;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,7 +14,6 @@ import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
-@Slf4j
 public class PersonagemService {
 
     private final ItemMagicoService itemMagicoService;

@@ -1,11 +1,8 @@
 package com.atividade.CrudRpg.controller.dto;
 
 import com.atividade.CrudRpg.domain.enums.TipoItemEnum;
-import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
