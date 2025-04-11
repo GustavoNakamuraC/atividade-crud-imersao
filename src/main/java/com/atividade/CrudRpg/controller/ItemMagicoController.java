@@ -14,7 +14,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 import java.util.List;
 
 @RestController
-@RequestMapping("/itens")
+@RequestMapping("/itens-magicos")
 @RequiredArgsConstructor
 public class ItemMagicoController {
     private final ItemMagicoService service;
@@ -48,24 +48,6 @@ public class ItemMagicoController {
     public ResponseEntity<ResponseDto<ItemMagicoDto>> buscarPorId(@PathVariable Long id){
         ItemMagicoDto itemMagico = ItemMagicoMapper.domainParaDto(service.buscarPorId(id));
         ResponseDto<ItemMagicoDto> resposta = new ResponseDto<>(itemMagico);
-
-        return ResponseEntity.ok(resposta);
-    }
-
-    @GetMapping("/personagem/{id}")
-    public ResponseEntity<ResponseDto<List<ItemMagicoDto>>> listarPorPersonagem(@PathVariable Long id){
-        List<ItemMagicoDto> itemMagicoList = service.listarPorPersonagem(id)
-                .stream().map(ItemMagicoMapper::domainParaDto).toList();
-
-        ResponseDto<List<ItemMagicoDto>> resposta = new ResponseDto<>(itemMagicoList);
-
-        return ResponseEntity.ok(resposta);
-    }
-
-    @GetMapping("amuleto/{id}")
-    public  ResponseEntity<ResponseDto<ItemMagicoDto>> buscarAmuletoPorPersonagem(@PathVariable Long id){
-        ItemMagicoDto itemMagicoDto = ItemMagicoMapper.domainParaDto(service.buscarAmuletoPorPersonagem(id));
-        ResponseDto<ItemMagicoDto> resposta = new ResponseDto<>(itemMagicoDto);
 
         return ResponseEntity.ok(resposta);
     }

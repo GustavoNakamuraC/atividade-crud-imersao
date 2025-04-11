@@ -17,7 +17,6 @@ import java.util.Optional;
 @Service
 @RequiredArgsConstructor
 public class ItemMagicoService {
-    private final PersonagemService personagemService;
     private final ItemMagicoRepository repository;
     private static final String ERRO_DADOS_INVALIDOS = "Dados do item mágico inválidos.";
     private static final String ERRO_ITEM_NAO_ENCONTRADO = "Item mágico não encontrado.";
@@ -56,27 +55,5 @@ public class ItemMagicoService {
         }
 
         return ItemMagicoMapper.entityParaDomain(itemMagico.get());
-    }
-
-
-    public List<ItemMagico> listarPorPersonagem(Long idPsersonagem) {
-        Personagem personagem = personagemService.buscarPorId(idPsersonagem);
-
-        return personagem.getItensMagicos();
-    }
-
-    public ItemMagico buscarAmuletoPorPersonagem(Long idPersonagem) {
-        Personagem personagem = personagemService.buscarPorId(idPersonagem);
-        List<ItemMagico> itens = personagem.getItensMagicos();
-        ItemMagico amuleto = new ItemMagico();
-
-        for (ItemMagico item : itens) {
-            if (item.getTipoItem() == TipoItemEnum.AMULETO){
-                amuleto = item;
-            }
-        }
-
-        return amuleto;
-
     }
 }

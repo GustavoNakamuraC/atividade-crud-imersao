@@ -59,6 +59,24 @@ public class PersonagemController {
         return ResponseEntity.ok(resposta);
     }
 
+    @GetMapping("/itens/{id}")
+    public ResponseEntity<ResponseDto<List<ItemMagicoDto>>> listarItensMagicosDoPersonagem(@PathVariable Long id){
+        List<ItemMagicoDto> itemMagicoList = service.listarItensMagicosDoPersonagem(id)
+                .stream().map(ItemMagicoMapper::domainParaDto).toList();
+
+        ResponseDto<List<ItemMagicoDto>> resposta = new ResponseDto<>(itemMagicoList);
+
+        return ResponseEntity.ok(resposta);
+    }
+
+    @GetMapping("amuleto/{id}")
+    public  ResponseEntity<ResponseDto<ItemMagicoDto>> buscarAmuletoDoPersonagem(@PathVariable Long id){
+        ItemMagicoDto itemMagicoDto = ItemMagicoMapper.domainParaDto(service.buscarAmuletoDoPersonagem(id));
+        ResponseDto<ItemMagicoDto> resposta = new ResponseDto<>(itemMagicoDto);
+
+        return ResponseEntity.ok(resposta);
+    }
+
     @PutMapping("/{id}")
     public ResponseEntity<ResponseDto<PersonagemDto>> atualizarNome(@PathVariable Long id, @RequestBody PersonagemNomeDto nomeDto){
         PersonagemDto personagemAlterado = PersonagemMapper.domainParaDto(service.atualizarNome(id, nomeDto.getNome()));

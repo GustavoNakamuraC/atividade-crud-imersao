@@ -2,6 +2,7 @@ package com.atividade.CrudRpg.service;
 
 import com.atividade.CrudRpg.domain.ItemMagico;
 import com.atividade.CrudRpg.domain.Personagem;
+import com.atividade.CrudRpg.domain.enums.TipoItemEnum;
 import com.atividade.CrudRpg.mapper.PersonagemMapper;
 import com.atividade.CrudRpg.repository.PersonagemRepository;
 import com.atividade.CrudRpg.repository.entity.PersonagemEntity;
@@ -53,17 +54,32 @@ public class PersonagemService {
         return PersonagemMapper.entityParaDomain(personagem.get());
     }
 
+    public List<ItemMagico> listarItensMagicosDoPersonagem(Long idPersonagem) {
+        Personagem personagem = buscarPorId(idPersonagem);
+        return personagem.getItensMagicos();
+    }
+
+    public ItemMagico buscarAmuletoDoPersonagem(Long idPersonagem) {
+        Personagem personagem = buscarPorId(idPersonagem);
+        List<ItemMagico> itens = personagem.getItensMagicos();
+        ItemMagico amuleto = new ItemMagico();
+
+        for (ItemMagico item : itens) {
+            if (item.getTipoItem() == TipoItemEnum.AMULETO){
+                amuleto = item;
+            }
+        }
+
+        return amuleto;
+
+    }
+
     public Personagem atualizarNome(Long id, String novoNome) {
         Personagem personagem = buscarPorId(id);
 
         personagem.setNome(novoNome);
 
         return personagem;
-    }
-
-    public void deletar(Long id) {
-        buscarPorId(id);
-        repository.deleteById(id);
     }
 
     public Personagem adicionarItem(Long id, ItemMagico itemMagico) {
@@ -82,5 +98,10 @@ public class PersonagemService {
         personagem.getItensMagicos().remove(itemMagicoRemove);
 
         return personagem;
+    }
+
+    public void deletar(Long id) {
+        buscarPorId(id);
+        repository.deleteById(id);
     }
 }
