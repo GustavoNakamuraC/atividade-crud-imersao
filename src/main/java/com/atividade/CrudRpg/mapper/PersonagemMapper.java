@@ -45,7 +45,7 @@ public class PersonagemMapper {
                 .itensMagicos(entity.getItensMagicos().stream()
                         .map(ItemMagicoMapper::entityParaDomain)
                         .toList())
-                .forca(entity.getDefesa())
+                .forca(entity.getForca())
                 .defesa(entity.getDefesa())
                 .build();
     }

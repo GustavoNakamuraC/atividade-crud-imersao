@@ -28,10 +28,10 @@ link: [localhost:8080/swagger-ui](http://localhost:8080/swagger-ui/index.html)
             "nome": "Capacete", 
             "tipoItem": "ARMADURA",
             "forca": 0,
-            "defesa": 7
+            "defesa": 3
         }
     ],
-    "forca": 5,
-    "defesa": 5
+    "forca": 3,
+    "defesa": 1
 }
 ```

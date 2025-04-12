@@ -28,7 +28,7 @@ public class PersonagemEntity {
 
     private Integer level;
 
-    @OneToMany(mappedBy = "personagem", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "personagem", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<ItemMagicoEntity> itensMagicos = new ArrayList<>();
 
     private Integer forca;

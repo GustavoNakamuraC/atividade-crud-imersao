@@ -120,7 +120,7 @@ public class PersonagemController {
             @ApiResponse(responseCode = "500", description = "Erro na atualização do nome do personagem.")
     })
     @PutMapping("/{id}")
-    public ResponseEntity<ResponseDto<PersonagemDto>> atualizarNome(@PathVariable Long id, @RequestBody PersonagemNomeDto nomeDto){
+    public ResponseEntity<ResponseDto<PersonagemDto>> atualizarNome(@PathVariable Long id, @RequestBody @Valid PersonagemNomeDto nomeDto){
         PersonagemDto personagemAlterado = PersonagemMapper.domainParaDto(service.atualizarNome(id, nomeDto.getNome()));
         ResponseDto<PersonagemDto> resposta = new ResponseDto<>(personagemAlterado);
 

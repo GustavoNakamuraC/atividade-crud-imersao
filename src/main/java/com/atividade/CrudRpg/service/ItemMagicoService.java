@@ -1,6 +1,7 @@
 package com.atividade.CrudRpg.service;
 
 import com.atividade.CrudRpg.domain.ItemMagico;
+import com.atividade.CrudRpg.domain.Personagem;
 import com.atividade.CrudRpg.domain.enums.TipoItemEnum;
 import com.atividade.CrudRpg.mapper.ItemMagicoMapper;
 import com.atividade.CrudRpg.repository.ItemMagicoRepository;
@@ -17,22 +18,21 @@ public class ItemMagicoService {
     private final ItemMagicoRepository repository;
     private static final String ERRO_DADOS_INVALIDOS = "Dados do item mágico inválidos.";
     private static final String ERRO_ITEM_NAO_ENCONTRADO = "Item mágico não encontrado.";
+    private static final String ERRO_PERSONAGEM_INVALIDO = "O personagem não é válido.";
 
     public ItemMagico cadastrar(ItemMagico itemMagico) {
 
-        if (itemMagico.getTipoItem() == TipoItemEnum.ARMA
-                && (itemMagico.getDefesa() > 0 || itemMagico.getForca() == 0)){
-            throw new RuntimeException(ERRO_DADOS_INVALIDOS);
+        verificarStatus(itemMagico);
+        Personagem personagem = itemMagico.getPersonagem();
+
+        if (personagem != null) {
+            if (personagem.getId() == null) {
+                throw new RuntimeException(ERRO_PERSONAGEM_INVALIDO);
+            }
         }
 
-        if (itemMagico.getTipoItem() == TipoItemEnum.ARMADURA
-                && (itemMagico.getForca() > 0 || itemMagico.getDefesa() == 0)){
-            throw new RuntimeException(ERRO_DADOS_INVALIDOS);
-        }
-
-        if (itemMagico.getTipoItem() == TipoItemEnum.AMULETO
-                && itemMagico.getDefesa() == 0 && itemMagico.getForca() == 0){
-            throw new RuntimeException(ERRO_DADOS_INVALIDOS);
+        if (itemMagico.getPersonagem() == null) {
+            itemMagico.setPersonagem(null);
         }
 
         return ItemMagicoMapper.entityParaDomain(
@@ -53,4 +53,23 @@ public class ItemMagicoService {
 
         return ItemMagicoMapper.entityParaDomain(itemMagico.get());
     }
+
+    public void verificarStatus(ItemMagico itemMagico){
+        if (itemMagico.getTipoItem() == TipoItemEnum.ARMA
+                && (itemMagico.getDefesa() > 0 || itemMagico.getForca() == 0)){
+            throw new RuntimeException(ERRO_DADOS_INVALIDOS);
+        }
+
+        if (itemMagico.getTipoItem() == TipoItemEnum.ARMADURA
+                && (itemMagico.getForca() > 0 || itemMagico.getDefesa() == 0)){
+            throw new RuntimeException(ERRO_DADOS_INVALIDOS);
+        }
+
+        if (itemMagico.getTipoItem() == TipoItemEnum.AMULETO
+                && itemMagico.getDefesa() == 0 && itemMagico.getForca() == 0){
+            throw new RuntimeException(ERRO_DADOS_INVALIDOS);
+        }
+    }
+
+
 }
