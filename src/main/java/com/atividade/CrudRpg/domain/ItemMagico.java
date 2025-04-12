@@ -14,4 +14,5 @@ public class ItemMagico {
     private TipoItemEnum tipoItem;
     private Integer forca;
     private Integer defesa;
+    private Personagem personagem;
 }

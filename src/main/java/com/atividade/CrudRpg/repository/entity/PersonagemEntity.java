@@ -4,6 +4,7 @@ import com.atividade.CrudRpg.domain.enums.ClasseEnum;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity (name = "Personagem")
@@ -27,10 +28,18 @@ public class PersonagemEntity {
 
     private Integer level;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinColumn(name = "id_personagem")
-    private List<ItemMagicoEntity> itensMagicos;
+    @OneToMany(mappedBy = "personagem", fetch = FetchType.EAGER)
+    private List<ItemMagicoEntity> itensMagicos = new ArrayList<>();
 
     private Integer forca;
     private Integer defesa;
+
+    public PersonagemEntity(String nome, String nomeFantasia, ClasseEnum classe, Integer level, Integer forca, Integer defesa) {
+            this.nome = nome;
+            this.nomeFantasia = nomeFantasia;
+            this.classe = classe;
+            this.level = level;
+            this.forca = forca;
+            this.defesa = defesa;
+    }
 }

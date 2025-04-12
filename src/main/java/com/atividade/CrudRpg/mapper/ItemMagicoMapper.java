@@ -42,6 +42,7 @@ public class ItemMagicoMapper {
                 .tipoItem(domain.getTipoItem())
                 .forca(domain.getForca())
                 .defesa(domain.getDefesa())
+                .personagem(PersonagemMapper.domainParaEntity(domain.getPersonagem()))
                 .build();
     }
 }

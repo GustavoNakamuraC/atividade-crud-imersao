@@ -11,6 +11,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -26,13 +27,14 @@ public class PersonagemController {
 
     private final PersonagemService service;
 
+
     @Operation(summary = "Realiza o cadastro de personagens", method = "POST")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "201", description = "Cadastro de personagem realizado com sucesso."),
             @ApiResponse(responseCode = "500", description = "Erro no cadastro de personagem.")
     })
     @PostMapping()
-    public ResponseEntity<ResponseDto<PersonagemDto>> cadastrar(@RequestBody PersonagemDto personagem) {
+    public ResponseEntity<ResponseDto<PersonagemDto>> cadastrar(@RequestBody @Valid PersonagemDto personagem) {
         PersonagemDto personagemSalvo = PersonagemMapper.domainParaDto(
                 service.cadastrar(PersonagemMapper.dtoParaDomain(personagem))
         );
@@ -164,6 +166,4 @@ public class PersonagemController {
         service.deletar(id);
         return ResponseEntity.noContent().build();
     }
-
-
 }

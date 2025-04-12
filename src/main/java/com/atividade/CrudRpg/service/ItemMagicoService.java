@@ -21,12 +21,12 @@ public class ItemMagicoService {
     public ItemMagico cadastrar(ItemMagico itemMagico) {
 
         if (itemMagico.getTipoItem() == TipoItemEnum.ARMA
-                && itemMagico.getDefesa() > 0 && itemMagico.getForca() == 0){
+                && (itemMagico.getDefesa() > 0 || itemMagico.getForca() == 0)){
             throw new RuntimeException(ERRO_DADOS_INVALIDOS);
         }
 
         if (itemMagico.getTipoItem() == TipoItemEnum.ARMADURA
-                && itemMagico.getForca() > 0 && itemMagico.getDefesa() == 0){
+                && (itemMagico.getForca() > 0 || itemMagico.getDefesa() == 0)){
             throw new RuntimeException(ERRO_DADOS_INVALIDOS);
         }
 

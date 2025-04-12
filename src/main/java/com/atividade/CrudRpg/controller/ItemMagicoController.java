@@ -9,6 +9,7 @@ import com.atividade.CrudRpg.service.ItemMagicoService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -25,10 +26,11 @@ public class ItemMagicoController {
     @Operation(summary = "Realiza o cadastro de itens mágicos", method = "POST")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "201", description = "Cadastro de item mágico realizado com sucesso."),
+            @ApiResponse(responseCode = "400", description = "Requisiçao enviada é inválida."),
             @ApiResponse(responseCode = "500", description = "Erro no cadastro de item mágico.")
     })
     @PostMapping()
-    public ResponseEntity<ResponseDto<ItemMagicoDto>> cadastrar(@RequestBody ItemMagicoDto item){
+    public ResponseEntity<ResponseDto<ItemMagicoDto>> cadastrar(@RequestBody @Valid ItemMagicoDto item){
         ItemMagicoDto itemMagico = ItemMagicoMapper.domainParaDto(service.cadastrar(ItemMagicoMapper.dtoParaDomain(item)));
         ResponseDto<ItemMagicoDto> resposta = new ResponseDto<>(itemMagico);
 

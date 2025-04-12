@@ -23,4 +23,8 @@ public class ItemMagicoEntity {
 
     private Integer forca;
     private Integer defesa;
+
+    @ManyToOne
+    @JoinColumn(name = "id_personagem")
+    private PersonagemEntity personagem;
 }

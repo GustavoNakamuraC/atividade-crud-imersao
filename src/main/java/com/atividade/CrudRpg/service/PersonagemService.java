@@ -9,6 +9,7 @@ import com.atividade.CrudRpg.repository.entity.PersonagemEntity;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -26,10 +27,19 @@ public class PersonagemService {
             throw new RuntimeException(ERRO_PERSONAGEM_INVALIDO);
         }
 
-        List<ItemMagico> itemMagicos = personagem.getItensMagicos().stream().map(itemMagico -> itemMagicoService.buscarPorId(itemMagico.getId())).toList();
-        personagem.setItensMagicos(itemMagicos);
+        PersonagemEntity personagemSalvo = repository.save(
+                PersonagemMapper.domainParaEntitySemItens(personagem)
+        );
 
-        PersonagemEntity personagemSalvo = repository.save(PersonagemMapper.domainParaEntity(personagem));
+        List<ItemMagico> itensMagicos = personagem.getItensMagicos() == null ? new ArrayList<>() : personagem.getItensMagicos();
+
+        List<ItemMagico> itensCadastrados = itensMagicos.stream()
+                .map(item -> {
+                    item.setPersonagem(PersonagemMapper.entityParaDomain(personagemSalvo));
+                    return itemMagicoService.cadastrar(item);
+                }).toList();
+
+        personagem.setItensMagicos(itensCadastrados);
 
         return PersonagemMapper.entityParaDomain(personagemSalvo);
     }
@@ -38,7 +48,24 @@ public class PersonagemService {
         List<PersonagemEntity> personagens = repository.findAll();
 
         return personagens.stream()
-                .map(PersonagemMapper::entityParaDomain)
+                .map(personagemEntity -> {
+                    Personagem personagem = PersonagemMapper.entityParaDomain(personagemEntity);
+                    List<ItemMagico> itensMagicos = listarItensMagicosDoPersonagem(personagem.getId());
+                    personagem.setItensMagicos(itensMagicos);
+
+                    int forcaPersonagem = personagem.getForca();
+                    int defesaPersonagem = personagem.getDefesa();
+
+                    for (ItemMagico item : personagem.getItensMagicos()) {
+                        forcaPersonagem += item.getForca();
+                        defesaPersonagem += item.getDefesa();
+                    }
+
+                    personagem.setForca(forcaPersonagem);
+                    personagem.setDefesa(defesaPersonagem);
+
+                    return personagem;
+                })
                 .toList();
     }
 

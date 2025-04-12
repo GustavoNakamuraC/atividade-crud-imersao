@@ -64,4 +64,15 @@ public class PersonagemMapper {
                 .defesa(domain.getDefesa())
                 .build();
     }
+
+    public static PersonagemEntity domainParaEntitySemItens(Personagem domain) {
+        return new PersonagemEntity(
+                domain.getNome(),
+                domain.getNomeFantasia(),
+                domain.getClasse(),
+                domain.getLevel(),
+                domain.getForca(),
+                domain.getDefesa()
+        );
+    }
 }
